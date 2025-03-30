@@ -9,27 +9,33 @@
 #    Updated: 2023/03/01 00:00:00 by <yourname>       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+NAME		:= PmergeMe
 
-NAME	= PmergeMe
-CXX		= c++
-CXXFLAGS= -Wall -Wextra -Werror -std=c++98 -g
+CXX			:= c++
+CXXFLAGS	:= -Wall -Wextra -Werror
+CXXFLAGS	+= -std=c++98
 
-SRCS	= main.cpp \
-		  PmergeMe.cpp
+SRCS		:= main.cpp \
+				PmergeMe.cpp
 
-OBJS	= $(SRCS:.cpp=.o)
+OBJS_DIR	:= obj
+OBJS		:= $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
+
+.PHONY: all clean fclean re
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(NAME) $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@
+
+$(OBJS_DIR)/%.o: %.cpp
+	mkdir -p $(OBJS_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	$(RM) -r $(OBJS_DIR)
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re
