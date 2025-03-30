@@ -74,9 +74,8 @@ void PmergeMe::display() {
 }
 
 size_t PmergeMe::jacobsthal(size_t n) {
-	return (std::pow(2, n + 1) + std::pow(-1, n) * 2) / 3;
+	return (std::pow(2, n + 1) - std::pow(-1, n) * 2) / 3;
 }
-
 
 size_t PmergeMe::BinarySearch_vector(std::vector<pairs> res, size_t right, int value) {
 	size_t left = 0, mid;
